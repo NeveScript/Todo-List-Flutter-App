@@ -8,13 +8,31 @@ class TodoListPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: TextField(
-            decoration: InputDecoration(
-              labelText: "Enter the task",
-              hintText: "Try typing: Feed the dog...",
-              border: OutlineInputBorder(),
-            ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            children: [
+              const Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Add a Task",
+                    hintText: "Example: Buy some winter clothes",
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.cyan,
+                  padding: const EdgeInsets.all(14),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 30,
+                ),
+              ),
+            ],
           ),
         ),
       ),
