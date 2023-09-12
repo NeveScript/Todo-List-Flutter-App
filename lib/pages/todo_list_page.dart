@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TodoListPage extends StatelessWidget {
-  const TodoListPage({super.key});
+class TodoListPage extends StatefulWidget {
+  TodoListPage({super.key});
+
+  @override
+  State<TodoListPage> createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  List<String> tasks = [];
+
+  final TextEditingController taskController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +23,10 @@ class TodoListPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: taskController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Add a Task",
                         hintText: "Example: Buy some winter clothes",
@@ -25,7 +35,13 @@ class TodoListPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 8.0,),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String task = taskController.text;
+
+                      setState(() {
+                        tasks.add(task);
+                      });
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan,
                       padding: const EdgeInsets.all(14.0),
@@ -40,11 +56,27 @@ class TodoListPage extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
+              ListView(
+                shrinkWrap: true,
+                children: [
+
+                  for(String task in tasks)
+                    ListTile(
+                      title: Text(task),
+                      subtitle: Text(DateTime.now().toString()),
+                      leading: const Icon(Icons.book, size: 30),
+                    ),
+
+                ],
+              ),
+              const SizedBox(
+                height: 16.0,
+              ),
               Row(
                 children: [
                   Expanded(
-                    child: const Text(
-                      "You have 0 pending tasks",
+                    child: Text(
+                      "You have ${tasks.length} pending tasks",
                     ),
                   ),
                   ElevatedButton(
