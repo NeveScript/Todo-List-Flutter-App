@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/todo_list_item.dart';
 
 class TodoListPage extends StatefulWidget {
   TodoListPage({super.key});
@@ -64,11 +65,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   children: [
 
                     for(String task in tasks)
-                      ListTile(
-                        title: Text(task),
-                        subtitle: Text(DateTime.now().toString()),
-                        leading: const Icon(Icons.book, size: 30),
-                      ),
+                      TodoListItem(),
 
                   ],
                 ),
