@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/todo_list_item.dart';
+import '../models/todo.dart';
 
 class TodoListPage extends StatefulWidget {
   TodoListPage({super.key});
@@ -9,9 +10,9 @@ class TodoListPage extends StatefulWidget {
 }
 
 class _TodoListPageState extends State<TodoListPage> {
-  List<String> tasks = [];
+  List<Todo> todos = [];
 
-  final TextEditingController taskController = TextEditingController();
+  final TextEditingController todoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   children: [
                     Expanded(
                       child: TextField(
-                        controller: taskController,
+                        controller: todoController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: "Add a Task",
@@ -38,13 +39,13 @@ class _TodoListPageState extends State<TodoListPage> {
                     const SizedBox(width: 8.0,),
                     ElevatedButton(
                       onPressed: () {
-                        String task = taskController.text;
+                        Todo todo = Todo(name: todoController.text, dateTime: DateTime.now());
 
                         setState(() {
-                          tasks.add(task);
+                          todos.add(todo);
                         });
 
-                        taskController.clear();
+                        todoController.clear();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.cyan,
@@ -65,8 +66,8 @@ class _TodoListPageState extends State<TodoListPage> {
                     shrinkWrap: true,
                     children: [
 
-                      for(String task in tasks)
-                        TodoListItem(taskName: task),
+                      for(Todo todo in todos)
+                        TodoListItem(todo: todo),
 
                     ],
                   ),
@@ -78,7 +79,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   children: [
                     Expanded(
                       child: Text(
-                        "You have ${tasks.length} pending tasks",
+                        "You have ${todos.length} pending tasks",
                       ),
                     ),
                     ElevatedButton(
