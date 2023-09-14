@@ -41,6 +41,8 @@ class _TodoListPageState extends State<TodoListPage> {
                       setState(() {
                         tasks.add(task);
                       });
+
+                      taskController.clear();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.cyan,
@@ -56,18 +58,20 @@ class _TodoListPageState extends State<TodoListPage> {
               const SizedBox(
                 height: 16.0,
               ),
-              ListView(
-                shrinkWrap: true,
-                children: [
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
 
-                  for(String task in tasks)
-                    ListTile(
-                      title: Text(task),
-                      subtitle: Text(DateTime.now().toString()),
-                      leading: const Icon(Icons.book, size: 30),
-                    ),
+                    for(String task in tasks)
+                      ListTile(
+                        title: Text(task),
+                        subtitle: Text(DateTime.now().toString()),
+                        leading: const Icon(Icons.book, size: 30),
+                      ),
 
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 16.0,
